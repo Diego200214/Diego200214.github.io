@@ -1,0 +1,60 @@
+========================================
+  GUÍA RÁPIDA — PORTAFOLIO DIEGO
+========================================
+
+PRIMERA VEZ (solo se hace una vez)
+------------------------------------
+1. Crea el repo en github.com con el nombre:
+   tu-usuario.github.io
+
+2. Abre Git Bash en la carpeta del portafolio
+   (clic derecho → Git Bash Here)
+
+3. Ejecuta estos comandos uno por uno:
+
+   git init
+   git add .
+   git commit -m "portafolio inicial"
+   git branch -M main
+   git remote add origin https://github.com/TU-USUARIO/TU-USUARIO.github.io.git
+   git push -u origin main
+
+4. En GitHub → Settings → Pages → Branch: main → Save
+
+5. Tu sitio queda en: https://tu-usuario.github.io
+
+
+CADA VEZ QUE EDITES ALGO
+------------------------------------
+1. Edita el index.html y guarda
+2. Abre Git Bash en la carpeta
+3. Ejecuta:
+
+   git add .
+   git commit -m "lo que cambiaste"
+   git push
+
+El sitio se actualiza en 1-2 minutos.
+
+
+COSAS QUE DEBES PERSONALIZAR EN index.html
+------------------------------------
+Busca con Ctrl+F y reemplaza:
+
+  tu_correo@ejemplo.com  →  tu correo real
+  tu-usuario             →  tu usuario de GitHub
+  tu-perfil              →  tu perfil de LinkedIn
+  Tu institución         →  nombre de tu escuela
+  [ screenshot ]         →  imagen real de tu proyecto
+
+
+ESTRUCTURA DE CARPETAS
+------------------------------------
+portafolio/
+├── index.html        ← tu portafolio
+├── README.md         ← descripción en GitHub
+├── .gitignore        ← archivos que Git ignora
+└── assets/           ← crea esta carpeta para imágenes
+    └── screenshots/  ← screenshots de tus proyectos
+
+========================================
