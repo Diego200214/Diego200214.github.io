@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlzMemory — Diego González</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #080c14;
+  --bg2:     #0d1220;
+  --bg3:     #111827;
+  --card:    #0f1624;
+  --orange:  #f97316;
+  --orange2: #fb923c;
+  --blue:    #3b82f6;
+  --blue2:   #60a5fa;
+  --text:    #f1f5f9;
+  --muted:   #64748b;
+  --muted2:  #94a3b8;
+  --border:  rgba(59,130,246,0.15);
+  --border2: rgba(249,115,22,0.2);
+  --mono:    'JetBrains Mono', monospace;
+  --sans:    'Outfit', sans-serif;
+  --grad:    linear-gradient(135deg, var(--orange), var(--blue));
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.6; }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 5%; height: 60px;
+  background: rgba(8,12,20,0.95); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-brand svg { width: 26px; height: 26px; }
+.nav-brand span { font-weight: 700; font-size: .95rem; color: var(--text); }
+.nav-back {
+  display: flex; align-items: center; gap: 7px;
+  color: var(--muted2); text-decoration: none; font-size: .85rem; font-weight: 500;
+  padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px;
+  transition: border-color .2s, color .2s;
+}
+.nav-back:hover { border-color: var(--orange); color: var(--orange); }
+.nav-back svg { width: 14px; height: 14px; }
+
+/* ── HERO DEL PROYECTO ── */
+.proj-hero {
+  padding: 3.5rem 5% 0;
+  background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.proj-hero::before {
+  content: ''; position: absolute; top: -60px; right: 0;
+  width: 50%; height: 200%;
+  background: radial-gradient(ellipse at 80% 30%, rgba(249,115,22,.06) 0%, rgba(59,130,246,.05) 50%, transparent 70%);
+  pointer-events: none;
+}
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: .72rem; color: var(--muted);
+  margin-bottom: 2rem;
+}
+.breadcrumb a { color: var(--orange2); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb span { color: var(--muted); }
+
+.hero-top { display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: start; padding-bottom: 2.5rem; }
+
+.proj-identity { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 1.2rem; }
+.proj-icon {
+  width: 64px; height: 64px; border-radius: 16px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--orange), #c2410c);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; box-shadow: 0 8px 24px rgba(249,115,22,.25);
+}
+.proj-title-block h1 { font-size: 2rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: .3rem; }
+.proj-title-block p { color: var(--muted2); font-size: .95rem; line-height: 1.6; }
+
+.proj-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
+.stack-pill {
+  font-family: var(--mono); font-size: .7rem; padding: 4px 12px; border-radius: 100px;
+  border: 1px solid rgba(59,130,246,.25); color: var(--blue2);
+  background: rgba(59,130,246,.08);
+}
+.stack-pill.orange { border-color: rgba(249,115,22,.3); color: var(--orange2); background: rgba(249,115,22,.08); }
+
+.proj-actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--orange); color: #fff;
+  padding: .65rem 1.4rem; border-radius: 8px;
+  text-decoration: none; font-weight: 600; font-size: .85rem;
+  display: flex; align-items: center; gap: 6px;
+  transition: background .2s, transform .15s;
+}
+.btn-primary:hover { background: var(--orange2); transform: translateY(-2px); }
+.btn-outline {
+  border: 1px solid var(--border); color: var(--muted2);
+  padding: .65rem 1.4rem; border-radius: 8px;
+  text-decoration: none; font-weight: 600; font-size: .85rem;
+  display: flex; align-items: center; gap: 6px;
+  transition: border-color .2s, color .2s, transform .15s;
+}
+.btn-outline:hover { border-color: var(--blue); color: var(--blue2); transform: translateY(-2px); }
+
+/* Imagen principal */
+.proj-main-img {
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  aspect-ratio: 16/9;
+  display: flex; align-items: center; justify-content: center;
+}
+.proj-main-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.img-placeholder {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; height: 100%; padding: 2rem;
+}
+.img-placeholder svg { width: 40px; height: 40px; color: var(--muted); }
+.img-placeholder span { font-family: var(--mono); font-size: .7rem; color: var(--muted); text-align: center; }
+
+/* META BAR */
+.meta-bar {
+  display: flex; gap: 0; border-top: 1px solid var(--border);
+  overflow-x: auto;
+}
+.meta-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: .9rem 1.5rem; border-right: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.meta-item svg { width: 15px; height: 15px; color: var(--orange); }
+.meta-label { font-family: var(--mono); font-size: .65rem; color: var(--muted); display: block; }
+.meta-val { font-size: .82rem; font-weight: 600; color: var(--text); }
+
+/* ── CONTENIDO PRINCIPAL ── */
+.main-content {
+  max-width: 1100px; margin: 0 auto; padding: 3rem 5%;
+  display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: start;
+}
+
+/* COLUMNA IZQUIERDA */
+.content-left { display: flex; flex-direction: column; gap: 2.5rem; }
+
+.block { }
+.block-title {
+  font-size: 1rem; font-weight: 700; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.block-title::before { content:''; width:3px; height:18px; background: var(--grad); border-radius: 2px; }
+.block p { color: var(--muted2); font-size: .9rem; line-height: 1.8; }
+
+.features { display: flex; flex-direction: column; gap: .5rem; margin-top: .5rem; }
+.feature-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: .88rem; color: var(--muted2); padding: .5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+}
+.feature-item:last-child { border-bottom: none; }
+.feature-item svg { width: 16px; height: 16px; color: var(--orange); flex-shrink: 0; margin-top: 2px; }
+
+.results { display: flex; flex-direction: column; gap: .6rem; margin-top: .5rem; }
+.result-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: .88rem; color: var(--muted2);
+}
+.result-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 7px; }
+
+/* COLUMNA DERECHA */
+.content-right { display: flex; flex-direction: column; gap: 2rem; }
+
+/* GALERÍA */
+.gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.gallery-item {
+  border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--border); background: var(--bg3);
+  cursor: pointer; transition: border-color .2s, transform .2s;
+  aspect-ratio: 16/10;
+  display: flex; flex-direction: column;
+}
+.gallery-item:hover { border-color: rgba(249,115,22,.4); transform: scale(1.02); }
+.gallery-item img { width: 100%; flex: 1; object-fit: cover; display: block; }
+.gallery-item-ph {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: .6rem; color: var(--muted); text-align: center; padding: .5rem;
+}
+.gallery-label {
+  font-size: .72rem; color: var(--muted2); font-weight: 500;
+  text-align: center; padding: .4rem; background: var(--bg3);
+  border-top: 1px solid var(--border);
+}
+
+/* TECH ICONS */
+.tech-icons { display: flex; flex-wrap: wrap; gap: .75rem; }
+.tech-icon-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: .75rem 1rem;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  transition: border-color .2s;
+  min-width: 70px;
+}
+.tech-icon-card:hover { border-color: rgba(249,115,22,.3); }
+.tech-icon-card img { width: 32px; height: 32px; object-fit: contain; }
+.tech-icon-card span { font-size: .68rem; color: var(--muted2); font-weight: 500; text-align: center; }
+
+/* LINKS CARD */
+.links-card {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 14px; padding: 1.5rem;
+}
+.links-card-title { font-size: .85rem; font-weight: 700; color: var(--muted2); margin-bottom: 1rem; font-family: var(--mono); }
+.link-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: .7rem 1rem; border-radius: 8px;
+  background: var(--card); border: 1px solid var(--border);
+  text-decoration: none; color: var(--text);
+  font-size: .85rem; font-weight: 600; margin-bottom: .6rem;
+  transition: border-color .2s, background .2s;
+}
+.link-item:last-child { margin-bottom: 0; }
+.link-item:hover { border-color: var(--orange); background: rgba(249,115,22,.05); }
+.link-item svg { width: 16px; height: 16px; color: var(--orange); }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 2rem;
+  font-family: var(--mono); font-size: .72rem; color: var(--muted);
+  border-top: 1px solid var(--border);
+  max-width: 1100px; margin: 0 auto;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  .hero-top { grid-template-columns: 1fr; }
+  .main-content { grid-template-columns: 1fr; }
+  .proj-hero, .main-content { padding-left: 1.2rem; padding-right: 1.2rem; }
+  nav { padding: 0 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="../index.html">
+    <svg viewBox="0 0 40 40" fill="none"><path d="M4 8 L10 2 L14 10 L20 6 L26 10 L30 2 L36 8 L34 18 C34 28 27 36 20 38 C13 36 6 28 6 18 Z" fill="#f97316"/><path d="M14 10 L20 14 L26 10 L20 6 Z" fill="#fb923c"/><path d="M10 2 L14 10 L10 14 Z" fill="#ea580c"/><path d="M30 2 L26 10 L30 14 Z" fill="#ea580c"/><ellipse cx="15" cy="20" rx="2.5" ry="3" fill="#1e293b"/><ellipse cx="25" cy="20" rx="2.5" ry="3" fill="#1e293b"/><ellipse cx="15.5" cy="19.5" rx="1" ry="1.5" fill="#3b82f6"/><ellipse cx="25.5" cy="19.5" rx="1" ry="1.5" fill="#3b82f6"/></svg>
+    <span>&lt;/&gt; Diego González</span>
+  </a>
+  <a href="../index.html#proyectos" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Volver a proyectos
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="proj-hero">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div class="breadcrumb">
+      <a href="../index.html">Inicio</a>
+      <span>›</span>
+      <a href="../index.html#proyectos">Proyectos</a>
+      <span>›</span>
+      <span>AlzMemory</span>
+    </div>
+
+    <div class="hero-top">
+      <div>
+        <div class="proj-identity">
+          <div class="proj-icon">🧠</div>
+          <div class="proj-title-block">
+            <h1>AlzMemory</h1>
+            <p>Aplicación web para apoyar a personas con Alzheimer mediante ejercicios de memoria y seguimiento del progreso.</p>
+          </div>
+        </div>
+        <div class="proj-stack">
+          <!-- ── EDITA TUS TECNOLOGÍAS AQUÍ ── -->
+          <span class="stack-pill">PHP</span>
+          <span class="stack-pill">MySQL</span>
+          <span class="stack-pill orange">JavaScript</span>
+          <span class="stack-pill">Bootstrap</span>
+          <span class="stack-pill">HTML5</span>
+          <span class="stack-pill">CSS3</span>
+        </div>
+        <div class="proj-actions">
+          <a href="#" class="btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            Código fuente
+          </a>
+          <a href="#" class="btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Ver demo en vivo
+          </a>
+        </div>
+      </div>
+
+      <!-- IMAGEN PRINCIPAL -->
+      <div class="proj-main-img">
+        <!--
+          Agrega tu screenshot principal:
+          <img src="assets/alzMemory-main.png" alt="AlzMemory screenshot">
+        -->
+        <div class="img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Agrega tu screenshot principal<br>assets/alzMemory-main.png</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- META BAR -->
+    <div class="meta-bar">
+      <div class="meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <div><span class="meta-label">Fecha</span><span class="meta-val">2024</span></div>
+      </div>
+      <div class="meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <div><span class="meta-label">Tipo</span><span class="meta-val">Aplicación Web</span></div>
+      </div>
+      <div class="meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div><span class="meta-label">Rol</span><span class="meta-val">Desarrollador Full Stack</span></div>
+      </div>
+      <div class="meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div><span class="meta-label">Duración</span><span class="meta-val">4 meses</span></div>
+      </div>
+      <div class="meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <div><span class="meta-label">Estado</span><span class="meta-val" style="color:#4ade80">Completado</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="main-content">
+
+  <!-- COLUMNA IZQUIERDA -->
+  <div class="content-left">
+
+    <div class="block">
+      <div class="block-title">Descripción del proyecto</div>
+      <p>
+        <!-- ── EDITA TU DESCRIPCIÓN AQUÍ ── -->
+        AlzMemory es un sistema web desarrollado para apoyar a personas que padecen Alzheimer y a sus cuidadores. La plataforma ofrece ejercicios cognitivos interactivos, recordatorios personalizados y un panel de seguimiento del progreso del paciente.
+        <br><br>
+        El proyecto nació como una propuesta de valor social durante la carrera, con el objetivo de aplicar tecnología web para mejorar la calidad de vida de adultos mayores con deterioro cognitivo.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Características principales</div>
+      <div class="features">
+        <!-- ── EDITA TUS FEATURES AQUÍ ── -->
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Ejercicios de memoria interactivos adaptados al nivel del paciente
+        </div>
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Sistema de recordatorios de medicamentos y actividades diarias
+        </div>
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Panel de seguimiento del progreso para cuidadores
+        </div>
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Interfaz accesible y sencilla para adultos mayores
+        </div>
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Gestión de múltiples pacientes desde un solo panel
+        </div>
+        <div class="feature-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Autenticación de usuarios con roles (cuidador / paciente)
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Resultados obtenidos</div>
+      <div class="results">
+        <!-- ── EDITA TUS RESULTADOS AQUÍ ── -->
+        <div class="result-item"><div class="result-dot"></div>Proyecto presentado y aprobado ante comité académico con calificación sobresaliente.</div>
+        <div class="result-item"><div class="result-dot"></div>Interfaz validada con usuarios adultos mayores, logrando navegación autónoma.</div>
+        <div class="result-item"><div class="result-dot"></div>Base de datos optimizada para consultas rápidas de historial de actividades.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COLUMNA DERECHA -->
+  <div class="content-right">
+
+    <!-- GALERÍA -->
+    <div class="block">
+      <div class="block-title">Galería del proyecto</div>
+      <div class="gallery-grid">
+        <!-- ── EDITA TUS SCREENSHOTS AQUÍ ── -->
+        <div class="gallery-item">
+          <!-- <img src="assets/alzMemory-dashboard.png" alt="Dashboard"> -->
+          <div class="gallery-item-ph">assets/alzMemory-<br>dashboard.png</div>
+          <div class="gallery-label">Dashboard</div>
+        </div>
+        <div class="gallery-item">
+          <!-- <img src="assets/alzMemory-ejercicios.png" alt="Ejercicios"> -->
+          <div class="gallery-item-ph">assets/alzMemory-<br>ejercicios.png</div>
+          <div class="gallery-label">Ejercicios</div>
+        </div>
+        <div class="gallery-item">
+          <!-- <img src="assets/alzMemory-recordatorios.png" alt="Recordatorios"> -->
+          <div class="gallery-item-ph">assets/alzMemory-<br>recordatorios.png</div>
+          <div class="gallery-label">Recordatorios</div>
+        </div>
+        <div class="gallery-item">
+          <!-- <img src="assets/alzMemory-progreso.png" alt="Progreso"> -->
+          <div class="gallery-item-ph">assets/alzMemory-<br>progreso.png</div>
+          <div class="gallery-label">Seguimiento</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECNOLOGÍAS -->
+    <div class="block">
+      <div class="block-title">Tecnologías utilizadas</div>
+      <div class="tech-icons">
+        <!-- ── EDITA TUS TECH ICONS AQUÍ ── -->
+        <div class="tech-icon-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
+          <span>PHP</span>
+        </div>
+        <div class="tech-icon-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+          <span>MySQL</span>
+        </div>
+        <div class="tech-icon-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+          <span>JavaScript</span>
+        </div>
+        <div class="tech-icon-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap">
+          <span>Bootstrap</span>
+        </div>
+        <div class="tech-icon-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+          <span>HTML5</span>
+        </div>
+        <div class="tech-icon-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+          <span>CSS3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENLACES -->
+    <div class="links-card">
+      <div class="links-card-title">// enlaces del proyecto</div>
+      <a href="#" class="link-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        Código fuente (GitHub)
+      </a>
+      <a href="#" class="link-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Ver demo en vivo
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Diego González — <a href="../index.html" style="color:var(--orange2); text-decoration:none;">Volver al portafolio</a></p>
+</footer>
+
+</body>
+</html>
