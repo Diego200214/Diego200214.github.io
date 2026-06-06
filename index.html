@@ -55,7 +55,7 @@ nav {
 
 /* ── HERO ── */
 .hero {
-  min-height: 100vh; display: grid;
+  min-height: 85vh; display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center; gap: 4rem;
   padding: 80px 5% 4rem;
@@ -83,7 +83,7 @@ nav {
 }
 .hero h1 .name { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hero-sub {
-  margin-top: 1.2rem; color: var(--muted2); font-size: 1rem;
+  margin-top: 1.2rem; color: var(--muted2); font-size: 1.3rem;
   line-height: 1.75; max-width: 480px;
   animation: fadeUp .5s .2s ease both;
 }
@@ -112,13 +112,13 @@ nav {
   animation: fadeUp .5s .4s ease both;
 }
 .social-btn {
-  width: 40px; height: 40px; border-radius: 8px;
+  width: 80px; height: 80px; border-radius: 8px;
   border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
   color: var(--muted2); text-decoration: none;
   transition: border-color .2s, color .2s, background .2s;
 }
 .social-btn:hover { border-color: var(--orange); color: var(--orange); background: rgba(249,115,22,.08); }
-.social-btn svg { width: 18px; height: 18px; }
+.social-btn svg { width: 48px; height: 48px; }
 
 /* HERO PHOTO */
 .hero-photo {
@@ -126,7 +126,7 @@ nav {
   position: relative; animation: fadeUp .5s .2s ease both;
 }
 .photo-ring {
-  width: 340px; height: 340px; border-radius: 50%;
+  width: 380px; height: 380px; border-radius: 50%;
   border: 2px solid transparent;
   background: linear-gradient(var(--bg), var(--bg)) padding-box,
               var(--grad) border-box;
@@ -138,7 +138,7 @@ nav {
   border: 1px solid rgba(249,115,22,.15);
 }
 .photo-ring img {
-  width: 310px; height: 310px; border-radius: 50%;
+  width: 355px; height: 355px; border-radius: 50%;
   object-fit: cover; object-position: top;
 }
 .photo-placeholder {
@@ -166,19 +166,19 @@ nav {
 @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
 
 /* ── SECCIONES ── */
-.section { padding: 6rem 5%; max-width: 1100px; margin: 0 auto; }
+.section { padding: 4rem 0%; max-width: 1400px; margin: -2.5% auto; }
 .section-tag {
-  font-family: var(--mono); font-size: .72rem; color: var(--orange);
+  font-family: var(--mono); font-size: .95rem; color: var(--orange);
   letter-spacing: .15em; text-transform: uppercase;
   display: flex; align-items: center; gap: 10px; margin-bottom: .75rem;
 }
 .section-tag::before { content:'//'; color: var(--blue); }
 .section-tag::after { content:''; flex:1; height:1px; background: var(--border); max-width:180px; }
-.section h2 { font-size: 2rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 2.5rem; }
+.section h2 { font-size: 2rem; font-weight: 1100; letter-spacing: -.02em; margin-bottom: 2.5rem; }
 
 /* ── SOBRE MÍ ── */
 .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
-.about-text p { color: var(--muted2); line-height: 1.85; margin-bottom: 1rem; font-size: .95rem; }
+.about-text p { color: var(--muted2); line-height: 1.85; margin-bottom: 1rem; font-size: 1.25rem; }
 .about-text p strong { color: var(--text); }
 .about-checks { margin-top: 1.5rem; display: flex; flex-direction: column; gap: .6rem; }
 .check-item { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--muted2); }
@@ -333,10 +333,12 @@ footer span { color: var(--orange); }
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-left">
-    <div class="hero-badge">Desarrollador Backend | Data Enthusiast</div>
+    <div class="hero-badge">Ingeniero en Sistemas Computacionales | Desarrollador Backend Jr.</div>
     <h1>Hola, soy<br><span class="name">Diego González Muñoz</span></h1>
     <p class="hero-sub">
-      Ingeniero en Sistemas Computacionales egresado del Tecnológico Nacional de México Campus Pachuca. Tengo experiencia en el desarrollo de aplicaciones web, diseño de bases de datos y consumo de APIs REST. Me gusta crear soluciones eficientes que generen impacto.</p>
+      Ingeniero en Sistemas Computacionales con experiencia en desarrollo de APIs REST, 
+      bases de datos relacionales y aplicaciones web. He participado en proyectos utilizando Java, PostgreSQL, MySQL y tecnologías web modernas. 
+      Me interesa desarrollar soluciones eficientes, escalables y orientadas a la gestión de información.</p>
     <div class="hero-actions">
       <a href="#proyectos" class="btn-orange">
         Ver Proyectos
@@ -347,6 +349,7 @@ footer span { color: var(--orange); }
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       </a>
     </div>
+
     <div class="hero-socials">
       <a href="https://github.com/diego200214" target="_blank" class="social-btn" title="GitHub">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
@@ -358,6 +361,7 @@ footer span { color: var(--orange); }
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       </a>
     </div>
+    
   </div>
 
   <div class="hero-photo">
@@ -387,9 +391,13 @@ footer span { color: var(--orange); }
   <h2>¿Quién soy?</h2>
   <div class="about-grid">
     <div class="about-text">
-      <p>Soy <strong>Ingeniero en Sistemas Computacionales</strong> recién egresado, apasionado por construir software que resuelve problemas reales. Me especializo en desarrollo backend, diseño de bases de datos relacionales, APIs REST y análisis de información.</p>
-      <p>Durante mi carrera desarrollé proyectos académicos y profesionales que me permitieron aplicar tecnologías como <strong>Java, Spring Boot, Python y PostgreSQL</strong>. Disfruto trabajar con tecnologías modernas y aprender constantemente.</p>
-      <p>Busco una oportunidad donde pueda aportar valor, crecer como profesional y colaborar en equipo con buenas prácticas de desarrollo.</p>
+      <p>Soy <strong>Ingeniero en Sistemas Computacionales</strong> egresado del Tecnológico Nacional de México Campus Pachuca. 
+        Durante mi formación académica y prácticas profesionales participé en proyectos de desarrollo backend, diseño de bases de datos y 
+        consumo de APIs REST.<br></p>
+        <p> Tengo experiencia trabajando con <strong>PostgreSQL, MySQL, Git, GitHub y Postman,</strong> 
+        así como conocimientos en <strong>Java, Python y desarrollo web</strong>. Disfruto resolver problemas mediante la tecnología y aprender
+         continuamente nuevas herramientas que fortalezcan mi perfil profesional.</p>
+
       <div class="about-checks">
         <div class="check-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -437,7 +445,7 @@ footer span { color: var(--orange); }
 <div class="tech-section" id="tecnologias">
   <div class="tech-inner">
     <div class="section-tag">tecnologías</div>
-    <h2 style="font-size:2rem;font-weight:800;letter-spacing:-.02em;margin-bottom:2rem;">Mi stack</h2>
+    <h2 style="font-size:2rem;font-weight:800;letter-spacing:-.02em;margin-bottom:1rem;">Mi stack</h2>
     <div class="tech-grid">
       <div class="tech-card">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
@@ -507,7 +515,7 @@ footer span { color: var(--orange); }
           3. Descomenta: <img src="assets/alzMemory.png" alt="AlzMemory">
           4. Borra el div proj-img-placeholder
         -->
-         <img src="assets/alzMemory.jpg" alt="AlzMemory"> 
+         <img src="assets/alzm_1.png" alt="AlzMemory"> 
         <!--<div class="proj-img-placeholder">[ Screenshot de AlzMemory ]<br>Agrega assets/alzMemory.png</div>-->
       </div>
       <div class="proj-body">
